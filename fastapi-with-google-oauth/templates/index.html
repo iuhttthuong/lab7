@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .movies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .movie {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .movie img {
+            width: 100%;
+            height: auto;
+        }
+        .movie-info {
+            padding: 10px;
+        }
+        h3 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+        p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-container">
+
+        </div>
+        <h1>nettrom.net</h1>
+        <div class="movies"></div>
+    </div>
+
+    <script>
+        const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8';
+        const BASE_URL = 'https://api.themoviedb.org/3';
+        const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+        let currentPage = 1;
+        const moviesContainer = document.querySelector('.movies');
+        function fetchMovies(url) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    moviesContainer.innerHTML = '';
+                    const movies = data.results;
+                    totalPages = data.total_pages;
+                    movies.forEach(movie => {
+                        const movieElement = document.createElement('div');
+                        movieElement.classList.add('movie');
+
+                        const imgElement = document.createElement('img');
+                        imgElement.src = IMG_URL + movie.poster_path;
+                        imgElement.alt = movie.title;
+
+                        const movieInfo = document.createElement('div');
+                        movieInfo.classList.add('movie-info');
+
+                        const titleElement = document.createElement('h3');
+                        titleElement.textContent = movie.title;
+
+                        const releaseDateElement = document.createElement('p');
+                        releaseDateElement.textContent = 'Release Date: ' + movie.release_date;
+
+                        movieInfo.appendChild(titleElement);
+                        movieInfo.appendChild(releaseDateElement);
+
+                        movieElement.appendChild(imgElement);
+                        movieElement.appendChild(movieInfo);
+
+                        moviesContainer.appendChild(movieElement);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching movies:', error);
+                });
+        }
+
+        function updatePaginationButtons() {
+            prevPageBtn.disabled = currentPage === 1;
+            nextPageBtn.disabled = currentPage === totalPages;
+        }
+
+        fetchMovies(BASE_URL + '/discover/movie?sort_by=popularity.desc&' + API_KEY + '&page=' + currentPage);
+        updatePaginationButtons();
+
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm !== '') {
+                fetchMovies(BASE_URL + '/search/movie?' + API_KEY + '&query=' + searchTerm + '&page=' + currentPage);
+            } else {
+                fetchMovies(BASE_URL + '/discover/movie?sort_by=popularity.desc&' + API_KEY + '&page=' + currentPage);
+            }
+        });
+
+
+    </script>
+</body>
+</html>
