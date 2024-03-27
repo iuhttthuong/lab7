@@ -43,13 +43,31 @@
             font-size: 14px;
             color: #666;
         }
-
+        .search-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .search-container input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="search-container">
-
+            <form id="searchForm">
+                <input type="text" id="searchInput" placeholder="Search for movies">
+                <input type="submit" value="Search">
+            </form>
         </div>
         <h1>nettrom.net</h1>
         <div class="movies"></div>
@@ -61,6 +79,10 @@
         const IMG_URL = 'https://image.tmdb.org/t/p/w500';
         let currentPage = 1;
         const moviesContainer = document.querySelector('.movies');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const prevPageBtn = document.getElementById('prevPage');
+        const nextPageBtn = document.getElementById('nextPage');
         function fetchMovies(url) {
             fetch(url)
                 .then(response => response.json())
