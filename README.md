@@ -1,2 +1,3 @@
-phan men lay api cua google de dang nhap 
-sau do lay api cua themoviedb de lay phim chieu rap va ... 
+# Phần mền lấy API của google để đăng nhập.Sau đó lấy API của themoviedb để lấy phim chiếu rạp
+
+
