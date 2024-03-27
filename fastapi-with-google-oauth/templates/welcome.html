@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Search</title>
+    <title >Movie Search</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f3f3f3;
+            background-color: #032638; /* Đổi màu nền thành đen */
+            color: #fff; /* Đổi màu chữ thành trắng */
         }
         .container {
-            max-width: 1200px;
+            max-width: 1200px;  
             margin: 20px auto;
             padding: 0 20px;
         }
@@ -52,6 +53,7 @@
             font-size: 16px;
         }
         .search-container input[type="submit"] {
+            border-radius: 10px;
             padding: 10px 20px;
             font-size: 16px;
             background-color: #007bff;
@@ -64,11 +66,12 @@
             text-align: center;
         }
         .pagination button {
+            border-radius: 10px;
             padding: 5px 10px;
             margin: 0 5px;
             font-size: 16px;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #00ff33;
+            color: rgb(10, 102, 117);
             border: none;
             cursor: pointer;
         }
@@ -82,7 +85,7 @@
                 <input type="submit" value="Search">
             </form>
         </div>
-        <h1>nettrom.net</h1>
+        <h1 style="color: red;">nettrom.net</h1>
         <div class="movies"></div>
         <div class="pagination" id="pagination">
             <button id="prevPage">Previous Page</button>
@@ -192,4 +195,3 @@
     </script>
 </body>
 </html>
-
